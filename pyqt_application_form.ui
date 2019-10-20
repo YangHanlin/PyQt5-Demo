@@ -16,7 +16,8 @@
   <property name="styleSheet">
    <string notr="true">* {
     font-family: 'Microsoft YaHei UI', sans-serif
-}</string>
+}
+</string>
   </property>
   <widget class="QWidget" name="central_widget"/>
   <widget class="QMenuBar" name="menubar">

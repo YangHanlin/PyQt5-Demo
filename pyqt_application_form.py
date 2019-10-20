@@ -16,7 +16,8 @@ class Ui_MainWindow(object):
         MainWindow.resize(800, 600)
         MainWindow.setStyleSheet("* {\n"
 "    font-family: \'Microsoft YaHei UI\', sans-serif\n"
-"}")
+"}\n"
+"")
         self.central_widget = QtWidgets.QWidget(MainWindow)
         self.central_widget.setObjectName("central_widget")
         MainWindow.setCentralWidget(self.central_widget)
