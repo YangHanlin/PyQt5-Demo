@@ -28,8 +28,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             action.triggered.connect(self.work_in_progress)
 
     def init_chores(self):
-        self.setFixedHeight(self.height())
-        self.setFixedWidth(self.width())
+        pass
 
     def work_in_progress(self):
         print('This feature is not implemented yet; please wait.')
