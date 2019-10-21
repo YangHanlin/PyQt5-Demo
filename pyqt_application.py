@@ -15,7 +15,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # empty
         ]
         self.not_ready_actions = [
-            self.action_quit
+            self.action_quit,
+            self.action_about
         ]
         self.init_connections()
         self.init_chores()
@@ -31,7 +32,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setFixedWidth(self.width())
 
     def work_in_progress(self):
-        print('This feature is not implemented; please wait.')
+        print('This feature is not implemented yet; please wait.')
 
 
 def main():
