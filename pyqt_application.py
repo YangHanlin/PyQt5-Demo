@@ -18,12 +18,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.action_quit
         ]
         self.init_connections()
+        self.init_chores()
 
     def init_connections(self):
         for button in self.not_ready_buttons:
             button.clicked.connect(self.work_in_progress)
         for action in self.not_ready_actions:
             action.triggered.connect(self.work_in_progress)
+
+    def init_chores(self):
+        self.setFixedHeight(self.height())
+        self.setFixedWidth(self.width())
 
     def work_in_progress(self):
         print('This feature is not implemented; please wait.')
