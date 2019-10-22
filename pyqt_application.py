@@ -4,7 +4,9 @@
 import sys
 import os
 
-from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QMessageBox
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 
 from pyqt_application_form import Ui_MainWindow
 from CustomizedException import CustomizedException
@@ -47,6 +49,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def reset_display_panel(self):
         self.label_display_panel.setText('')
+        self.label_display_panel.setAlignment(Qt.AlignLeft)
         self.textedit_display_panel.clear()
         self.textedit_display_panel.hide()
 
@@ -54,12 +57,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         print('This feature is not implemented yet; please wait.')
 
     def browse_file(self):
-        self.lineedit_path.setText(QFileDialog.getOpenFileName(
+        path = QFileDialog.getOpenFileName(
             self,
             'Browse and select a file',
             '',
             ';;'.join(['{} ({})'.format(pattern[0], ' '.join(pattern[1])) for pattern in self.file_patterns])
-        )[0])
+        )[0]
+        if path:
+            self.lineedit_path.setText(path)
 
     def open_file(self):
         path = self.lineedit_path.text()
@@ -68,7 +73,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self._open_file(path)
             except CustomizedException as e:
                 e.pop_up(self)
-
 
     def _open_file(self, path):
         pattern = self.pattern_of(path)
@@ -83,9 +87,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 raise CustomizedException(CustomizedException.describe_file_error(e, path))
         elif pattern == 'Images':
             if not os.path.exists(path):
+                print('File Not Found!')
                 raise CustomizedException(CustomizedException.describe_file_error(FileNotFoundError('No such file or directory'), path))
             self.reset_display_panel()
-            # self.widget_display_panel.setStyleSheet('border-image: url({}); background-repeat: no-repeat; background-size: 100% 100%'.format(path))
+            self.label_display_panel.setAlignment(Qt.AlignCenter)
+            self.label_display_panel.setPixmap(QPixmap(path).scaled(self.widget_display_panel.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation))
         else:
             raise CustomizedException('Internal Error:\nInvalid file pattern \'{}\''.format(pattern))
 
