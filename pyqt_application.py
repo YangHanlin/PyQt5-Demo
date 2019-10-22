@@ -6,7 +6,6 @@ import sys
 from PyQt5.QtWidgets import QMainWindow, QApplication
 
 from pyqt_application_form import Ui_MainWindow
-from pyqt_application_service import MainWindowService
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -14,7 +13,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
         self.application = application
-        self.service = MainWindowService(self, application)
         self.not_ready_buttons = [
             self.pushbutton_add,
             self.pushbutton_browse,
@@ -22,7 +20,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.pushbutton_remove
         ]
         self.not_ready_actions = [
-            self.action_quit,
             self.action_about,
             self.action_download_tab,
             self.action_file_tab
@@ -31,6 +28,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.init_chores()
 
     def init_connections(self):
+        self.action_quit.triggered.connect(self.application.quit)
         for button in self.not_ready_buttons:
             button.clicked.connect(self.work_in_progress)
         for action in self.not_ready_actions:
