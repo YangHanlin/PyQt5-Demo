@@ -36,9 +36,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def init_connections(self):
         self.action_quit.triggered.connect(self.application.quit)
+        self.action_about.triggered.connect(self.show_about)
         self.pushbutton_browse.clicked.connect(self.browse_file)
         self.pushbutton_open.clicked.connect(self.open_file)
-
         for button in self.not_ready_buttons:
             button.clicked.connect(self.work_in_progress)
         for action in self.not_ready_actions:
@@ -103,7 +103,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     return pattern[0]
 
     def show_about(self):
-        QMessageBox.about()
+        QMessageBox.about(
+            self,
+            'About',
+            'Copyright (C) 2019 Yang Hanlin.\n'
+            'Grade 2018, School of Software, Hefei University of Technology'
+        )
 
 
 def main():
