@@ -3,7 +3,7 @@
 
 import sys
 
-from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QMessageBox
 
 from pyqt_application_form import Ui_MainWindow
 
@@ -15,7 +15,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.application = application
         self.not_ready_buttons = [
             self.pushbutton_add,
-            self.pushbutton_open,
             self.pushbutton_remove
         ]
         self.not_ready_actions = [
@@ -34,6 +33,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def init_connections(self):
         self.action_quit.triggered.connect(self.application.quit)
         self.pushbutton_browse.clicked.connect(self.browse_file)
+        self.pushbutton_open.clicked.connect(self.open_file)
         for button in self.not_ready_buttons:
             button.clicked.connect(self.work_in_progress)
         for action in self.not_ready_actions:
@@ -52,6 +52,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             '',
             ';;'.join(['{} ({})'.format(pattern[0], ' '.join(pattern[1])) for pattern in self.file_patterns])
         )[0])
+
+    def open_file(self):
+        path = self.lineedit_path.text()
+        if path:
+            try:
+                
+                with open(path) as file:
+                    pass
+            except FileNotFoundError as e:
+                QMessageBox.critical(
+                    self,
+                    'Error',
+                    'Error in opening file \'{}\':\n{}'.format(path, e.args[1])
+                )
 
 
 def main():
