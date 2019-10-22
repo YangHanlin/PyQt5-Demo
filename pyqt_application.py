@@ -22,7 +22,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.pushbutton_remove
         ]
         self.not_ready_actions = [
-            self.action_about,
             self.action_download_tab,
             self.action_file_tab
         ]
@@ -39,6 +38,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.action_quit.triggered.connect(self.application.quit)
         self.pushbutton_browse.clicked.connect(self.browse_file)
         self.pushbutton_open.clicked.connect(self.open_file)
+
         for button in self.not_ready_buttons:
             button.clicked.connect(self.work_in_progress)
         for action in self.not_ready_actions:
@@ -101,6 +101,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             for suffix in pattern[1]:
                 if path.endswith(suffix[suffix.rfind('*.') + len('*.'):]):
                     return pattern[0]
+
+    def show_about(self):
+        QMessageBox.about()
 
 
 def main():

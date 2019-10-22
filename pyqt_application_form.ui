@@ -86,16 +86,8 @@
     <property name="title">
      <string>&amp;View</string>
     </property>
-    <widget class="QMenu" name="menu_toggle">
-     <property name="title">
-      <string>Toggle</string>
-     </property>
-     <addaction name="action_empty"/>
-    </widget>
     <addaction name="action_file_tab"/>
     <addaction name="action_download_tab"/>
-    <addaction name="separator"/>
-    <addaction name="menu_toggle"/>
    </widget>
    <addaction name="menu_file"/>
    <addaction name="menu_view"/>
