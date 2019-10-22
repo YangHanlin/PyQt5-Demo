@@ -73,6 +73,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self._open_file(path)
             except CustomizedException as e:
                 e.pop_up(self)
+            else:
+                self.list_widget_recent.addItem(path)
 
     def _open_file(self, path):
         pattern = self.pattern_of(path)
