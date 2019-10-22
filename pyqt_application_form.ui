@@ -32,6 +32,25 @@
       <property name="styleSheet">
        <string notr="true"/>
       </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QLabel" name="label_display_panel">
+         <property name="text">
+          <string>N/A</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTextEdit" name="textedit_display_panel">
+         <property name="styleSheet">
+          <string notr="true">font-family: 'Fira Code', Consolas, 'Courier New', monospace</string>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>
