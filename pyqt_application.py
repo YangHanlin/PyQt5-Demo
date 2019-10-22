@@ -4,13 +4,17 @@
 import sys
 
 from PyQt5.QtWidgets import QMainWindow, QApplication
+
 from pyqt_application_form import Ui_MainWindow
+from pyqt_application_service import MainWindowService
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, application=None):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
+        self.application = application
+        self.service = MainWindowService(self, application)
         self.not_ready_buttons = [
             self.pushbutton_add,
             self.pushbutton_browse,
@@ -41,7 +45,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 def main():
     application = QApplication(sys.argv)
-    main_window = MainWindow()
+    main_window = MainWindow(application=application)
     main_window.show()
     sys.exit(application.exec_())
 
