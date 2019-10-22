@@ -12,11 +12,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
         self.not_ready_buttons = [
-            # empty
+            self.pushbutton_add,
+            self.pushbutton_browse,
+            self.pushbutton_open,
+            self.pushbutton_remove
         ]
         self.not_ready_actions = [
             self.action_quit,
-            self.action_about
+            self.action_about,
+            self.action_download_tab,
+            self.action_file_tab
         ]
         self.init_connections()
         self.init_chores()

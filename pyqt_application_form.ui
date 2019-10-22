@@ -28,7 +28,7 @@
   <widget class="QWidget" name="central_widget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <widget class="QWidget" name="widget" native="true">
+     <widget class="QWidget" name="widget_display_panel" native="true">
       <property name="styleSheet">
        <string notr="true"/>
       </property>
@@ -67,16 +67,16 @@
     <property name="title">
      <string>&amp;View</string>
     </property>
-    <widget class="QMenu" name="menuToggle">
+    <widget class="QMenu" name="menu_toggle">
      <property name="title">
       <string>Toggle</string>
      </property>
-     <addaction name="action_Empty"/>
+     <addaction name="action_empty"/>
     </widget>
-    <addaction name="action_filetab"/>
-    <addaction name="action_filetab_2"/>
+    <addaction name="action_file_tab"/>
+    <addaction name="action_download_tab"/>
     <addaction name="separator"/>
-    <addaction name="menuToggle"/>
+    <addaction name="menu_toggle"/>
    </widget>
    <addaction name="menu_file"/>
    <addaction name="menu_view"/>
@@ -99,25 +99,25 @@
        <property name="currentIndex">
         <number>0</number>
        </property>
-       <widget class="QWidget" name="tab_1">
+       <widget class="QWidget" name="tab_file">
         <attribute name="title">
-         <string>Tab 1</string>
+         <string>File</string>
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_4">
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout">
+          <layout class="QHBoxLayout" name="hortizontal_layout_open_file">
            <item>
-            <widget class="QLabel" name="label">
+            <widget class="QLabel" name="label_path">
              <property name="text">
               <string>Path</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="lineEdit"/>
+            <widget class="QLineEdit" name="lineedit_path"/>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_2">
+            <widget class="QPushButton" name="pushbutton_browse">
              <property name="maximumSize">
               <size>
                <width>40</width>
@@ -130,7 +130,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="pushbutton_open">
              <property name="text">
               <string>&amp;Open</string>
              </property>
@@ -139,25 +139,72 @@
           </layout>
          </item>
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
+          <layout class="QVBoxLayout" name="vertical_layout_recent_files">
            <item>
-            <widget class="QLabel" name="label_2">
+            <widget class="QLabel" name="label_recent">
              <property name="text">
               <string>Recent</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QListWidget" name="listWidget"/>
+            <widget class="QListWidget" name="list_widget_recent"/>
            </item>
           </layout>
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="tab_2">
+       <widget class="QWidget" name="tab_download">
         <attribute name="title">
-         <string>Tab 2</string>
+         <string>Download</string>
         </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_6">
+         <item>
+          <layout class="QHBoxLayout" name="horizontal_layout_actions">
+           <item>
+            <widget class="QPushButton" name="pushbutton_add">
+             <property name="text">
+              <string>&amp;Add...</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontal_spacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushbutton_remove">
+             <property name="text">
+              <string>&amp;Remove</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="vertical_layout_task_list">
+           <item>
+            <widget class="QLabel" name="label_task_list">
+             <property name="text">
+              <string>Task List</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTableWidget" name="table_widget_task_list"/>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </widget>
       </widget>
      </item>
@@ -174,17 +221,26 @@
     <string>&amp;About...</string>
    </property>
   </action>
-  <action name="action_filetab">
+  <action name="action_file_tab">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>File Tab</string>
    </property>
   </action>
-  <action name="action_filetab_2">
+  <action name="action_download_tab">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Download Tab</string>
    </property>
   </action>
-  <action name="action_Empty">
+  <action name="action_empty">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>(Empty)</string>
    </property>
