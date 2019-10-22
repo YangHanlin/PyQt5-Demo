@@ -12,4 +12,4 @@ class CustomizedException(Exception):
         )
 
     def describe_file_error(exception, path):
-        return 'Error in opening file \'{}\':\n{}'.format(path, exception.args[1])
+        return 'Error in opening file \'{}\':\n{}'.format(path, exception.args[-1])

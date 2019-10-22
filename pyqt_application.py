@@ -87,7 +87,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 raise CustomizedException(CustomizedException.describe_file_error(e, path))
         elif pattern == 'Images':
             if not os.path.exists(path):
-                print('File Not Found!')
                 raise CustomizedException(CustomizedException.describe_file_error(FileNotFoundError('No such file or directory'), path))
             self.reset_display_panel()
             self.label_display_panel.setAlignment(Qt.AlignCenter)
