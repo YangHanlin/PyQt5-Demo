@@ -67,6 +67,16 @@
     <property name="title">
      <string>&amp;View</string>
     </property>
+    <widget class="QMenu" name="menuToggle">
+     <property name="title">
+      <string>Toggle</string>
+     </property>
+     <addaction name="action_Empty"/>
+    </widget>
+    <addaction name="action_filetab"/>
+    <addaction name="action_filetab_2"/>
+    <addaction name="separator"/>
+    <addaction name="menuToggle"/>
    </widget>
    <addaction name="menu_file"/>
    <addaction name="menu_view"/>
@@ -93,6 +103,56 @@
         <attribute name="title">
          <string>Tab 1</string>
         </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Path</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_2">
+             <property name="maximumSize">
+              <size>
+               <width>40</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton">
+             <property name="text">
+              <string>&amp;Open</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Recent</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QListWidget" name="listWidget"/>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </widget>
        <widget class="QWidget" name="tab_2">
         <attribute name="title">
@@ -112,6 +172,21 @@
   <action name="action_about">
    <property name="text">
     <string>&amp;About...</string>
+   </property>
+  </action>
+  <action name="action_filetab">
+   <property name="text">
+    <string>File Tab</string>
+   </property>
+  </action>
+  <action name="action_filetab_2">
+   <property name="text">
+    <string>Download Tab</string>
+   </property>
+  </action>
+  <action name="action_Empty">
+   <property name="text">
+    <string>(Empty)</string>
    </property>
   </action>
  </widget>
