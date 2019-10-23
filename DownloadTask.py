@@ -1,10 +1,14 @@
 import os
 
+from PyQt5.QtCore import *
+
 default_url = 'https://hanlinyang.coding.me/academy-city/greetings.txt'
 target_prefix = ''
 
 
-class DownloadTask:
+class DownloadTask(QObject):
+    status_changed = pyqtSignal(str)
+
     def __init__(self, url=None, target=None):
         self.url = url if url is not None else default_url
         self.target = target_prefix + self._available_target_for(url)
@@ -15,12 +19,12 @@ class DownloadTask:
 
     def start(self):
         # TODO
-        self.status = 'Completed'
+        self._change_status('Completed')
         print('N/A for now')
 
     def stop(self):
         # TODO
-        self.status = 'Aborted'
+        self._change_status('Aborted')
         print('N/A for now')
 
     def progress(self):
@@ -43,3 +47,7 @@ class DownloadTask:
         if n:
             return filename + ' (' + str(n) + ').' + extension
         return filename + '.' + extension
+
+    def _change_status(self, status):
+        self.status = status
+        self.status_changed.emit(status)
