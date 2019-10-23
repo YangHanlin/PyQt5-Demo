@@ -13,9 +13,13 @@ class DownloadTask:
         return 'Download task [URL = \'{}\', target = \'{}\', Status = \'{}\']'.format(self.url, self.target, self.status)
 
     def start(self):
+        # TODO
+        self.status = 'Completed'
         print('N/A for now')
 
     def stop(self):
+        # TODO
+        self.status = 'Aborted'
         print('N/A for now')
 
     def progress(self):
