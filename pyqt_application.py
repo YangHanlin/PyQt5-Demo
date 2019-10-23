@@ -147,12 +147,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def _add_task(self, url):
         if url:
             self.download_tasks.append(DownloadTask(url))
+            self.download_tasks[-1].status_changed.connect(self.update_task_list)
         self.update_task_list()
 
     def remove_task(self):
         task_to_remove = self.tablewidget_task_list.currentRow()
-        del self.download_tasks[task_to_remove]
-        self.update_task_list()
+        # del self.download_tasks[task_to_remove]
+        # self.update_task_list()
+        status = self.download_tasks[task_to_remove].status
+        if status == 'Waiting':
+            self.download_tasks[task_to_remove].start()
+        elif status == 'Completed':
+            self.download_tasks[task_to_remove].stop()
 
     def update_task_list(self):
         row_count = len(self.download_tasks)
