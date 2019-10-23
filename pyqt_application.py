@@ -37,8 +37,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def init_connections(self):
         self.action_quit.triggered.connect(self.application.quit)
         self.action_about.triggered.connect(self.show_about)
-        self.action_file_tab.triggered.connect(self.toggle_file_tab)
-        self.action_download_tab.triggered.connect(self.toggle_download_tab)
+        self.action_file_tab.triggered.connect(self.update_tab)
+        self.action_download_tab.triggered.connect(self.update_tab)
         self.pushbutton_browse.clicked.connect(self.browse_file)
         self.pushbutton_open.clicked.connect(self.open_file)
         for button in self.not_ready_buttons:
@@ -113,19 +113,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             'Grade 2018, School of Software, Hefei University of Technology'
         )
 
-    def toggle_file_tab(self):
-        checked = self.action_file_tab.isChecked()
-
+    def update_tab(self):
+        # TODO: Restore current tab
+        self.tab_widget.clear()
         if self.action_file_tab.isChecked():
-            self.tab_file.show()
-        else:
-            self.tab_file.hide()
-
-    def toggle_download_tab(self):
+            self.tab_widget.addTab(self.tab_file, 'File')
         if self.action_download_tab.isChecked():
-            self.tab_download.show()
-        else:
-            self.tab_download.hide()
+            self.tab_widget.addTab(self.tab_download, 'Download')
 
 
 def main():
