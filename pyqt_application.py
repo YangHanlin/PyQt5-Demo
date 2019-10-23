@@ -74,7 +74,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             except CustomizedException as e:
                 e.pop_up(self)
             else:
-                self.list_widget_recent.addItem(path)
+                if not self.list_widget_recent.findItems(path, Qt.MatchExactly):
+                    self.list_widget_recent.addItem(path)
 
     def _open_file(self, path):
         pattern = self.pattern_of(path)

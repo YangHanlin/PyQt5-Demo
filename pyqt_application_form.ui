@@ -45,6 +45,9 @@
          <property name="styleSheet">
           <string notr="true">font-family: 'Fira Code', Consolas, 'Courier New', monospace</string>
          </property>
+         <property name="lineWrapMode">
+          <enum>QTextEdit::NoWrap</enum>
+         </property>
          <property name="readOnly">
           <bool>true</bool>
          </property>

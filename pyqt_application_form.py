@@ -33,6 +33,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addWidget(self.label_display_panel)
         self.textedit_display_panel = QtWidgets.QTextEdit(self.widget_display_panel)
         self.textedit_display_panel.setStyleSheet("font-family: \'Fira Code\', Consolas, \'Courier New\', monospace")
+        self.textedit_display_panel.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
         self.textedit_display_panel.setReadOnly(True)
         self.textedit_display_panel.setObjectName("textedit_display_panel")
         self.verticalLayout_3.addWidget(self.textedit_display_panel)
