@@ -185,7 +185,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         elif event.type() == QEvent.Resize:
             print('Resize event captured!')
             if self.display_panel_mode == 'img':
-                original_pixmap = self.label_display_panel.pixmap()
+                # original_pixmap = self.label_display_panel.pixmap()
+                original_pixmap = QPixmap(self.display_panel_img_path)
                 print('Got original!')
                 new_size = self.widget_display_panel.size()
                 print('Got size!')
