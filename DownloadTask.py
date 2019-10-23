@@ -10,6 +10,7 @@ target_prefix = ''
 
 class DownloadTask(QObject):
     status_changed = pyqtSignal(str)
+    aborted = pyqtSignal()
 
     def __init__(self, url=None, target=None):
         super().__init__()
@@ -24,11 +25,16 @@ class DownloadTask(QObject):
     def start(self):
         self.thread_ = DownloadThread(self.url, self.target)
         self.thread_.completed.connect(self._on_completed)
+        self.thread_.aborted.connect(self._on_aborted)
         self.thread_.failed.connect(self._on_failed)
         self.thread_.progressed.connect(self._on_progressed)
         self.thread_.start()
 
     def stop(self):
+        if self.thread_.isRunning():
+            self.thread_.to_abort = True
+        else:
+            self._on_aborted(False)
         # try:
         #     if self.thread_.isRunning():
         #         self.thread_.terminate()
@@ -36,13 +42,19 @@ class DownloadTask(QObject):
         #     self._change_status('Aborted')
         # except Exception as e:
         #     print(type(e), e.args)
-        if self.thread_.isRunning():
-            self.thread_.terminate()
-            self._remove_target()
-        self._change_status('Aborted')
+        # if self.thread_.isRunning():
+        #     self.thread_.terminate()
+        #     self._remove_target()
+        # self._change_status('Aborted')
 
     def _on_completed(self):
         self._change_status('Completed')
+
+    def _on_aborted(self, need_removal):
+        if need_removal:
+            self._remove_target()
+        self._change_status('Aborted')
+        self.aborted.emit()
 
     def _on_failed(self, err_str):
         if err_str:

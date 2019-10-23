@@ -30,6 +30,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.display_panel_path = ''
         self.widget_display_panel_original_geometry = QRect()
         self.widget_display_panel_layout_margins = (0, 0, 0, 0)
+        self.task_to_remove = -1
         self.init_connections()
         self.init_event_filters()
         self.init_chores()
@@ -148,14 +149,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if url:
             self.download_tasks.append(DownloadTask(url))
             self.download_tasks[-1].status_changed.connect(self.update_task_list)
+            self.download_tasks[-1].aborted.connect(self._remove_task)
         self.update_task_list()
         self.download_tasks[-1].start()
 
     def remove_task(self):
-        task_to_remove = self.tablewidget_task_list.currentRow()
-        self.download_tasks[task_to_remove].stop()
-        del self.download_tasks[task_to_remove]
+        self.task_to_remove = self.tablewidget_task_list.currentRow()
+        self.download_tasks[self.task_to_remove].stop()
+
+    def _remove_task(self):
+        del self.download_tasks[self.task_to_remove]
         self.update_task_list()
+        self.task_to_remove = -1
 
     def update_task_list(self):
         row_count = len(self.download_tasks)
