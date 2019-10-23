@@ -26,6 +26,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ]
         self.download_tasks = []
         self.download_task_items = []
+        self.display_panel_mode = ''
+        self.display_panel_img_path = ''
         self.init_connections()
         self.init_chores()
         self.installEventFilter(self)
@@ -48,6 +50,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         pass
 
     def reset_display_panel(self):
+        self.display_panel_mode = 'none'
+        self.display_panel_img_path = ''
         self.label_display_panel.setText('')
         self.label_display_panel.setAlignment(Qt.AlignLeft)
         self.textedit_display_panel.clear()
@@ -84,6 +88,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             try:
                 with open(path) as file:
                     self.reset_display_panel()
+                    self.display_panel_mode = 'text'
                     self.label_display_panel.setText(path[path.rfind('/') + len('/'):])
                     self.textedit_display_panel.setText(file.read())
                     self.textedit_display_panel.show()
@@ -91,10 +96,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 raise CustomizedException(CustomizedException.describe_file_error(e, path))
         elif pattern == 'Images':
             if not os.path.exists(path):
-                raise CustomizedException(CustomizedException.describe_file_error(FileNotFoundError('No such file or directory'), path))
+                raise CustomizedException(
+                    CustomizedException.describe_file_error(FileNotFoundError('No such file or directory'), path))
             self.reset_display_panel()
+            self.display_panel_mode = 'img'
+            self.display_panel_img_path = path
             self.label_display_panel.setAlignment(Qt.AlignCenter)
-            self.label_display_panel.setPixmap(QPixmap(path).scaled(self.widget_display_panel.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation))
+            self.label_display_panel.setPixmap(
+                QPixmap(path).scaled(self.widget_display_panel.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation))
         else:
             raise CustomizedException('Internal Error:\nInvalid file pattern \'{}\''.format(pattern))
 
@@ -157,22 +166,39 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.open_file()
 
     def eventFilter(self, obj, event):
-        # FIXME: The event filter cannot receive any event other than those in which obj == self
+        # FIXME: The event filter cannot receive any event other than those in which obj == self (MainWindow)
         # print('OBJ = {}, EVENT.TYPE = {}'.format(obj, event.type()))
-        if event.type() == QEvent.MouseButtonDblClick:
-            print('Captured doubleclick: obj = {}'.format(obj))
-            if obj in (self.widget_display_panel, self.label_display_panel, self.textedit_display_panel):
-                print('Object confirmed!')
-                if self.widget_display_panel.isFullScreen():
-                    print('Going back')
-                    self.widget_display_panel.setWindowFlags(Qt.SubWindow)
-                    self.widget_display_panel.setGeometry(self.rec0)
-                    self.widget_display_panel.showNormal()
-                else:
-                    print('Going FullScreen!')
-                    self.widget_display_panel.setWindowFlags(Qt.Dialog)
-                    self.widget_display_panel.showFullScreen()
-                return True
+        if obj in (self.widget_display_panel, self.label_display_panel, self.textedit_display_panel) \
+                and event.type() == QEvent.MouseButtonDblClick:
+            print('Object confirmed!')
+            if self.widget_display_panel.isFullScreen():
+                print('Going back')
+                self.widget_display_panel.setWindowFlags(Qt.SubWindow)
+                self.widget_display_panel.setGeometry(self.rec0)
+                self.widget_display_panel.showNormal()
+            else:
+                print('Going FullScreen!')
+                self.widget_display_panel.setWindowFlags(Qt.Dialog)
+                self.widget_display_panel.showFullScreen()
+            return True
+        # elif obj == self.widget_display_panel and event.type() == QEvent.Resize:
+        elif event.type() == QEvent.Resize:
+            print('Resize event captured!')
+            if self.display_panel_mode == 'img':
+                original_pixmap = self.label_display_panel.pixmap()
+                print('Got original!')
+                new_size = self.widget_display_panel.size()
+                print('Got size!')
+                new_pixmap = original_pixmap.scaled(new_size, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                print('Got new!')
+                self.label_display_panel.setPixmap(new_pixmap)
+                print('Set new!')
+                # self.label_display_panel.setPixmap(
+                #     self.label_display_panel.pixmap().scaled(self.widget_display_panel.size()),
+                #     Qt.KeepAspectRatio,
+                #     Qt.SmoothTransformation
+                # )
+            return True
         return False
 
 
