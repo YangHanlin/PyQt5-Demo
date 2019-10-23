@@ -218,12 +218,12 @@
               <string>&amp;Task List</string>
              </property>
              <property name="buddy">
-              <cstring>table_widget_task_list</cstring>
+              <cstring>tablewidget_task_list</cstring>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QTableWidget" name="table_widget_task_list"/>
+            <widget class="QTableWidget" name="tablewidget_task_list"/>
            </item>
           </layout>
          </item>

@@ -134,10 +134,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dialog.show()
 
     def _add_task(self, url):
-        if not url:
-            return
-        download_task = DownloadTask(url)
-        print('New download task: {}'.format(download_task))
+        if url:
+            self.download_tasks.append(DownloadTask(url))
+        self.update_task_list()
 
     def update_task_list(self):
         pass
