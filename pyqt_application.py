@@ -165,6 +165,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.fill_item(item)
         self.open_file()
 
+    def handle_resize(self):
+        if self.display_panel_mode == 'img':
+            self.label_display_panel.setPixmap(QPixmap(self.display_panel_img_path).scaled(
+                self.widget_display_panel.size(),
+                Qt.KeepAspectRatio,
+                Qt.SmoothTransformation
+            ))
+
     def eventFilter(self, obj, event):
         # FIXME: The event filter cannot receive any event other than those in which obj == self (MainWindow)
         # print('OBJ = {}, EVENT.TYPE = {}'.format(obj, event.type()))
@@ -176,29 +184,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.widget_display_panel.setWindowFlags(Qt.SubWindow)
                 self.widget_display_panel.setGeometry(self.rec0)
                 self.widget_display_panel.showNormal()
+                self.handle_resize()  # ?
             else:
                 print('Going FullScreen!')
                 self.widget_display_panel.setWindowFlags(Qt.Dialog)
                 self.widget_display_panel.showFullScreen()
+                self.handle_resize()  # ?
             return True
         # elif obj == self.widget_display_panel and event.type() == QEvent.Resize:
         elif event.type() == QEvent.Resize:
             print('Resize event captured!')
-            if self.display_panel_mode == 'img':
-                # original_pixmap = self.label_display_panel.pixmap()
-                original_pixmap = QPixmap(self.display_panel_img_path)
-                print('Got original!')
-                new_size = self.widget_display_panel.size()
-                print('Got size!')
-                new_pixmap = original_pixmap.scaled(new_size, Qt.KeepAspectRatio, Qt.SmoothTransformation)
-                print('Got new!')
-                self.label_display_panel.setPixmap(new_pixmap)
-                print('Set new!')
-                # self.label_display_panel.setPixmap(
-                #     self.label_display_panel.pixmap().scaled(self.widget_display_panel.size()),
-                #     Qt.KeepAspectRatio,
-                #     Qt.SmoothTransformation
-                # )
+            self.handle_resize()
             return True
         return False
 
