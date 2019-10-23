@@ -88,7 +88,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def _open_file(self, path):
         pattern = self.pattern_of(path)
-        if pattern == 'Text files' or pattern == 'All files':
+        if pattern in ('Text files', 'All files'):
             try:
                 with open(path) as file:
                     self.reset_display_panel()
