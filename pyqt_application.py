@@ -153,6 +153,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def remove_task(self):
         task_to_remove = self.tablewidget_task_list.currentRow()
+        self.download_tasks[task_to_remove].stop()
         del self.download_tasks[task_to_remove]
         self.update_task_list()
 

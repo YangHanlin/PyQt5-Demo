@@ -1,7 +1,8 @@
 import os
-import requests
 
 from PyQt5.QtCore import *
+
+from DownloadThread import DownloadThread
 
 default_url = 'https://hanlinyang.coding.me/academy-city/greetings.txt'
 target_prefix = ''
@@ -15,46 +16,43 @@ class DownloadTask(QObject):
         self.url = url if url is not None else default_url
         self.target = target_prefix + self._available_target_for(url)
         self.status = 'Waiting'
+        self.thread_ = None
 
     def __str__(self):
         return 'Download task [URL = \'{}\', target = \'{}\', Status = \'{}\']'.format(self.url, self.target, self.status)
 
     def start(self):
-        # FIXME: The download process will block any other action in the program.
-        self._change_status('Progressing')
-        try:
-            with open(self.target, 'wb') as target_file:
-                response = requests.get(self.url, stream=True)
-                response.raise_for_status()
-                total_size = int(response.headers['Content-Length'])
-                chunk_size = 4 * 1024
-                downloaded_size = 0
-                # Response content is divided into chunks to avoid excessive use of memory
-                for chunk in response.iter_content(chunk_size=chunk_size):
-                    if chunk:
-                        target_file.write(chunk)
-                        downloaded_size += chunk_size
-                        self._change_status('{}%'.format(downloaded_size / total_size * 100))
-        except requests.exceptions.HTTPError as e:
-            err_str = e.args[0]
-            colon_index = err_str.find(':')
-            if colon_index != -1:
-                err_str = err_str[:colon_index]
-            self._remove_target()
-            self._change_status('Failed ({})'.format(err_str))
-        except Exception as e:
-            self._remove_target()
-            print(type(e), e.args)
-            self._change_status('Failed')
-        else:
-            self._change_status('Completed')
+        self.thread_ = DownloadThread(self.url, self.target)
+        self.thread_.completed.connect(self._on_completed)
+        self.thread_.failed.connect(self._on_failed)
+        self.thread_.progressed.connect(self._on_progressed)
+        self.thread_.start()
 
     def stop(self):
-        # TODO Some improvement?
+        # try:
+        #     if self.thread_.isRunning():
+        #         self.thread_.terminate()
+        #         self._remove_target()
+        #     self._change_status('Aborted')
+        # except Exception as e:
+        #     print(type(e), e.args)
+        if self.thread_.isRunning():
+            self.thread_.terminate()
+            self._remove_target()
         self._change_status('Aborted')
 
-    def progress(self):
-        return 0.0
+    def _on_completed(self):
+        self._change_status('Completed')
+
+    def _on_failed(self, err_str):
+        if err_str:
+            self._change_status('Failed ({})'.format(err_str))
+        else:
+            self._change_status('Failed')
+        self._remove_target()
+
+    def _on_progressed(self, progress):
+        self._change_status('{}%'.format(progress * 100))
 
     def _available_target_for(self, url):
         res = url[url.rfind('/') + len('/'):]
@@ -76,7 +74,6 @@ class DownloadTask(QObject):
 
     def _change_status(self, status):
         self.status = status
-        print('status = {}'.format(status))
         self.status_changed.emit(status)
 
     def _remove_target(self):
