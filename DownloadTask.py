@@ -26,7 +26,10 @@ class DownloadTask(QObject):
             with open(self.target, 'wb') as target_file:
                 response = requests.get(self.url)
                 response.raise_for_status()
-                target_file.write(response.content)
+                # Response content is divided into chunks to avoid excessive use of memory
+                for chunk in response.iter_content(chunk_size=1024):
+                    if chunk:
+                        target_file.write(chunk)
         except requests.exceptions.HTTPError as e:
             err_str = e.args[0]
             colon_index = err_str.find(':')
