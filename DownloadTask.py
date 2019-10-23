@@ -34,15 +34,15 @@ class DownloadTask(QObject):
         self.thread_.start()
 
     def stop(self):
-        print('Going to stop {}'.format(self.target))
+        # print('Going to stop {}'.format(self.target))
         if self.stopping:
             return
         self.stopping = True
         if self.thread_.isRunning():
-            print('Running...')
+            # print('Running...')
             self.thread_.to_abort = True
         else:
-            print('Not Running...')
+            # print('Not Running...')
             self._on_aborted(False)
 
     def _on_completed(self):
