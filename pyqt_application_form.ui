@@ -103,6 +103,9 @@
      <height>200</height>
     </size>
    </property>
+   <property name="windowTitle">
+    <string>Tools</string>
+   </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>

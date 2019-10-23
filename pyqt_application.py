@@ -52,7 +52,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.widget_display_panel.installEventFilter(self)
 
     def init_chores(self):
-        pass
+        self.sidebar.setFeatures(QDockWidget.DockWidgetMovable | QDockWidget.DockWidgetFloatable)
 
     def reset_display_panel(self):
         self.display_panel_mode = 'none'

@@ -158,6 +158,7 @@ class Ui_MainWindow(object):
         self.menu_file.setTitle(_translate("MainWindow", "&File"))
         self.menu_help.setTitle(_translate("MainWindow", "&Help"))
         self.menu_view.setTitle(_translate("MainWindow", "&View"))
+        self.sidebar.setWindowTitle(_translate("MainWindow", "Tools"))
         self.label_path.setText(_translate("MainWindow", "&Path"))
         self.pushbutton_browse.setText(_translate("MainWindow", "..."))
         self.pushbutton_open.setText(_translate("MainWindow", "&Open"))
