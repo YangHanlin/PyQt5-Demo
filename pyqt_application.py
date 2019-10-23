@@ -29,6 +29,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.display_panel_mode = ''
         self.display_panel_img_path = ''
         self.widget_display_panel_original_geometry = QRect()
+        self.widget_display_panel_layout_margins = (0, 0, 0, 0)
         self.init_connections()
         self.init_event_filters()
         self.init_chores()
@@ -182,15 +183,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.widget_display_panel.setWindowFlags(Qt.SubWindow)
                 self.widget_display_panel.setGeometry(self.widget_display_panel_original_geometry)
                 self.widget_display_panel.showNormal()
+                if self.display_panel_mode == 'img':
+                    self.verticalLayout_3.setContentsMargins(*self.widget_display_panel_layout_margins)
+                    self.widget_display_panel_layout_margins = (0, 0, 0, 0)
             else:
                 self.widget_display_panel_original_geometry = self.widget_display_panel.geometry()
                 self.widget_display_panel.setWindowFlags(Qt.Window)
+                if self.display_panel_mode == 'img':
+                    self.widget_display_panel_layout_margins = self.verticalLayout_3.getContentsMargins()
+                    self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
                 self.widget_display_panel.showFullScreen()
-                # TODO: Rid of the margins of the layout of widget_display_panel temporarily in full-screen mode
             return True
         elif obj == self.widget_display_panel and event.type() == QEvent.Resize:
-            print('Resize event captured!')
-            # FIXME: Images will be infinitely resized as the program goes full-screen
             self.handle_resize()
             return True
         return False
