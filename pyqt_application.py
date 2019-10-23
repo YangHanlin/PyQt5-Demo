@@ -32,6 +32,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ]
         self.init_connections()
         self.init_chores()
+        self.installEventFilter(self)
         self.reset_display_panel()
 
     def init_connections(self):
@@ -121,6 +122,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.tab_widget.addTab(self.tab_file, 'File')
         if self.action_download_tab.isChecked():
             self.tab_widget.addTab(self.tab_download, 'Download')
+
+    def eventFilter(self, obj, event):
+        # print('OBJ = {}, EVENT.TYPE = {}'.format(obj, event.type()))
+        if event.type() == QEvent.MouseButtonDblClick:
+            print('Captured doubleclick: obj = {}'.format(obj))
+            if obj in (self.widget_display_panel, self.label_display_panel, self.textedit_display_panel):
+                print('Object confirmed!')
+                if self.widget_display_panel.isFullScreen():
+                    print('Going back')
+                    self.widget_display_panel.setWindowFlags(Qt.SubWindow)
+                    self.widget_display_panel.setGeometry(self.rec0)
+                    self.widget_display_panel.showNormal()
+                else:
+                    print('Going FullScreen!')
+                    self.widget_display_panel.setWindowFlags(Qt.Window)
+                    self.widget_display_panel.showFullScreen()
+                return True
+        return False
 
 
 def main():
