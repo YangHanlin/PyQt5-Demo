@@ -148,7 +148,7 @@ class Ui_MainWindow(object):
         self.label_task_list.setBuddy(self.tablewidget_task_list)
 
         self.retranslateUi(MainWindow)
-        self.tab_widget.setCurrentIndex(1)
+        self.tab_widget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
