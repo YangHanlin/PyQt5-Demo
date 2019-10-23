@@ -30,6 +30,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             ('Images', ['*.jpg', '*.png', '*.gif', '*.bmp', '*.svg']),
             ('All files', ['*'])
         ]
+        self.download_tasks = []
         self.init_connections()
         self.init_chores()
         self.installEventFilter(self)
@@ -124,6 +125,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.tab_widget.addTab(self.tab_download, 'Download')
 
     def eventFilter(self, obj, event):
+        # FIXME: The event filter cannot receive any event other than those in which obj == self
         # print('OBJ = {}, EVENT.TYPE = {}'.format(obj, event.type()))
         if event.type() == QEvent.MouseButtonDblClick:
             print('Captured doubleclick: obj = {}'.format(obj))
@@ -136,7 +138,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.widget_display_panel.showNormal()
                 else:
                     print('Going FullScreen!')
-                    self.widget_display_panel.setWindowFlags(Qt.Window)
+                    self.widget_display_panel.setWindowFlags(Qt.Dialog)
                     self.widget_display_panel.showFullScreen()
                 return True
         return False
