@@ -62,9 +62,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.textedit_display_panel.clear()
         self.textedit_display_panel.hide()
 
-    def work_in_progress(self):
-        print('This feature is not implemented yet; please wait.')
-
     def browse_file(self):
         path = QFileDialog.getOpenFileName(
             self,
