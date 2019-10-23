@@ -1,4 +1,5 @@
 import os
+import requests
 
 from PyQt5.QtCore import *
 
@@ -19,14 +20,29 @@ class DownloadTask(QObject):
         return 'Download task [URL = \'{}\', target = \'{}\', Status = \'{}\']'.format(self.url, self.target, self.status)
 
     def start(self):
-        # TODO
-        self._change_status('Completed')
-        print('N/A for now')
+        # FIXME: The download process will block any other action in the program.
+        self._change_status('Progressing')
+        try:
+            with open(self.target, 'wb') as target_file:
+                response = requests.get(self.url)
+                response.raise_for_status()
+                target_file.write(response.content)
+        except requests.exceptions.HTTPError as e:
+            err_str = e.args[0]
+            colon_index = err_str.find(':')
+            if colon_index != -1:
+                err_str = err_str[:colon_index]
+            self._remove_target()
+            self._change_status('Failed ({})'.format(err_str))
+        except Exception as e:
+            self._remove_target()
+            self._change_status('Failed')
+        else:
+            self._change_status('Completed')
 
     def stop(self):
-        # TODO
+        # TODO Some improvement?
         self._change_status('Aborted')
-        print('N/A for now')
 
     def progress(self):
         return 0.0
@@ -52,3 +68,7 @@ class DownloadTask(QObject):
     def _change_status(self, status):
         self.status = status
         self.status_changed.emit(status)
+
+    def _remove_target(self):
+        if os.path.exists(self.target):
+            os.remove(self.target)

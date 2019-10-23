@@ -149,6 +149,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.download_tasks.append(DownloadTask(url))
             self.download_tasks[-1].status_changed.connect(self.update_task_list)
         self.update_task_list()
+        self.download_tasks[-1].start()
 
     def remove_task(self):
         task_to_remove = self.tablewidget_task_list.currentRow()
