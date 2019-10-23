@@ -8,19 +8,17 @@ from InquireUrlDialog_form import Ui_Dialog
 
 
 class InquireUrlDialog(QDialog, Ui_Dialog):
-    url_ready = pyqtSignal()
+    url_ready = pyqtSignal(str)
 
     def __init__(self, parent=None):
         super(InquireUrlDialog, self).__init__(parent)
         self.setupUi(self)
-        self.button_box.accepted.connect(self.on_ok_clicked)
-        self.button_box.rejected.connect(self.on_cancel_clicked)
-        self.closed.connect(self.url_ready)
-        self.result_url = ''
+        self.button_box.accepted.connect(self.success)
+        self.button_box.rejected.connect(self.failure)
 
-    def on_ok_clicked(self):
-        self.result_url = self.lineedit_url.text()
-        self.close()
+    def success(self):
+        self.url_ready.emit(self.lineedit_url.text())
+        self.accept()
 
-    def on_cancel_clicked(self):
-        self.close()
+    def failure(self):
+        self.url_ready.emit('')
