@@ -21,7 +21,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.application = application
         self.not_ready_buttons = [
             # self.pushbutton_add,
-            self.pushbutton_remove
+            # self.pushbutton_remove
         ]
         self.not_ready_actions = [
             # self.action_download_tab,
@@ -46,7 +46,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.pushbutton_browse.clicked.connect(self.browse_file)
         self.pushbutton_open.clicked.connect(self.open_file)
         self.pushbutton_add.clicked.connect(self.add_task)
-
+        self.pushbutton_remove.clicked.connect(self.remove_task)
         for button in self.not_ready_buttons:
             button.clicked.connect(self.work_in_progress)
         for action in self.not_ready_actions:
@@ -137,6 +137,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if url:
             self.download_tasks.append(DownloadTask(url))
         self.update_task_list()
+
+    def remove_task(self):
+        print('Not available for now')
 
     def update_task_list(self):
         pass
