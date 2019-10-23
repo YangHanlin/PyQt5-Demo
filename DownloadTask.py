@@ -10,6 +10,7 @@ class DownloadTask(QObject):
     status_changed = pyqtSignal(str)
 
     def __init__(self, url=None, target=None):
+        super().__init__()
         self.url = url if url is not None else default_url
         self.target = target_prefix + self._available_target_for(url)
         self.status = 'Waiting'
@@ -32,9 +33,9 @@ class DownloadTask(QObject):
 
     def _available_target_for(self, url):
         res = url[url.rfind('/') + len('/'):]
-        seperator_pos = res.rfind('.')
-        if seperator_pos != -1:
-            filename, extension = res[:seperator_pos], res[seperator_pos + len('.'):]
+        separator_pos = res.rfind('.')
+        if separator_pos != -1:
+            filename, extension = res[:separator_pos], res[separator_pos + len('.'):]
         else:
             filename, extension = res, ''
         n = 0
