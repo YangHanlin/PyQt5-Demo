@@ -150,8 +150,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.download_tasks.append(DownloadTask(url))
             self.download_tasks[-1].status_changed.connect(self.update_task_list)
             self.download_tasks[-1].aborted.connect(self._remove_task)
+            self.download_tasks[-1].start()
         self.update_task_list()
-        self.download_tasks[-1].start()
 
     def remove_task(self):
         self.pushbutton_remove.setEnabled(False)
