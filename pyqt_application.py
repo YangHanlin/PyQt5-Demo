@@ -49,8 +49,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def init_event_filters(self):
         self.widget_display_panel.installEventFilter(self)
-        # self.label_display_panel.installEventFilter(self)
-        # self.textedit_display_panel.installEventFilter(self)
 
     def init_chores(self):
         pass
@@ -86,7 +84,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 if not self.list_widget_recent.findItems(path, Qt.MatchExactly):
                     self.list_widget_recent.addItem(path)
-                    # TODO: Click on list to re-open previously viewed files
 
     def _open_file(self, path):
         pattern = self.pattern_of(path)
