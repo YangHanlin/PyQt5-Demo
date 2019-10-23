@@ -123,7 +123,10 @@
            <item>
             <widget class="QLabel" name="label_path">
              <property name="text">
-              <string>Path</string>
+              <string>&amp;Path</string>
+             </property>
+             <property name="buddy">
+              <cstring>lineedit_path</cstring>
              </property>
             </widget>
            </item>
@@ -157,7 +160,10 @@
            <item>
             <widget class="QLabel" name="label_recent">
              <property name="text">
-              <string>Recent</string>
+              <string>&amp;Recent</string>
+             </property>
+             <property name="buddy">
+              <cstring>list_widget_recent</cstring>
              </property>
             </widget>
            </item>
@@ -209,7 +215,10 @@
            <item>
             <widget class="QLabel" name="label_task_list">
              <property name="text">
-              <string>Task List</string>
+              <string>&amp;Task List</string>
+             </property>
+             <property name="buddy">
+              <cstring>table_widget_task_list</cstring>
              </property>
             </widget>
            </item>
@@ -243,7 +252,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>File Tab</string>
+    <string>&amp;File Tab</string>
    </property>
   </action>
   <action name="action_download_tab">
@@ -254,7 +263,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Download Tab</string>
+    <string>&amp;Download Tab</string>
    </property>
   </action>
   <action name="action_empty">
