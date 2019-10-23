@@ -190,6 +190,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.widget_display_panel.setWindowFlags(Qt.Dialog)
                 self.widget_display_panel.showFullScreen()
                 self.handle_resize()  # ?
+                # TODO: Rid of the margins of the layout of widget_display_panel temporarily in full-screen mode
             return True
         # elif obj == self.widget_display_panel and event.type() == QEvent.Resize:
         elif event.type() == QEvent.Resize:
