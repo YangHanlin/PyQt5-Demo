@@ -18,11 +18,14 @@ class DownloadTask(QObject):
         self.target = target_prefix + self._available_target_for(url)
         self.status = 'Waiting'
         self.thread_ = None
+        self.stopping = False
 
     def __str__(self):
         return 'Download task [URL = \'{}\', target = \'{}\', Status = \'{}\']'.format(self.url, self.target, self.status)
 
     def start(self):
+        if self.stopping:
+            return
         self.thread_ = DownloadThread(self.url, self.target)
         self.thread_.completed.connect(self._on_completed)
         self.thread_.aborted.connect(self._on_aborted)
@@ -31,21 +34,16 @@ class DownloadTask(QObject):
         self.thread_.start()
 
     def stop(self):
+        print('Going to stop {}'.format(self.target))
+        if self.stopping:
+            return
+        self.stopping = True
         if self.thread_.isRunning():
+            print('Running...')
             self.thread_.to_abort = True
         else:
+            print('Not Running...')
             self._on_aborted(False)
-        # try:
-        #     if self.thread_.isRunning():
-        #         self.thread_.terminate()
-        #         self._remove_target()
-        #     self._change_status('Aborted')
-        # except Exception as e:
-        #     print(type(e), e.args)
-        # if self.thread_.isRunning():
-        #     self.thread_.terminate()
-        #     self._remove_target()
-        # self._change_status('Aborted')
 
     def _on_completed(self):
         self._change_status('Completed')
@@ -54,6 +52,7 @@ class DownloadTask(QObject):
         if need_removal:
             self._remove_target()
         self._change_status('Aborted')
+        self.stopping = False
         self.aborted.emit()
 
     def _on_failed(self, err_str):
