@@ -110,6 +110,8 @@ class Ui_MainWindow(object):
         self.label_task_list.setObjectName("label_task_list")
         self.vertical_layout_task_list.addWidget(self.label_task_list)
         self.tablewidget_task_list = QtWidgets.QTableWidget(self.tab_download)
+        self.tablewidget_task_list.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.tablewidget_task_list.setShowGrid(False)
         self.tablewidget_task_list.setObjectName("tablewidget_task_list")
         self.tablewidget_task_list.setColumnCount(0)
         self.tablewidget_task_list.setRowCount(0)

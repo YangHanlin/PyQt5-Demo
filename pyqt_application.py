@@ -19,24 +19,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
         self.application = application
-        self.not_ready_buttons = [
-            # self.pushbutton_add,
-            # self.pushbutton_remove
-        ]
-        self.not_ready_actions = [
-            # self.action_download_tab,
-            # self.action_file_tab
-        ]
         self.file_patterns = [
             ('Text files', ['*.txt']),
             ('Images', ['*.jpg', '*.png', '*.gif', '*.bmp', '*.svg']),
             ('All files', ['*'])
         ]
         self.download_tasks = []
+        self.download_task_items = []
         self.init_connections()
         self.init_chores()
         self.installEventFilter(self)
         self.reset_display_panel()
+        self.update_task_list()
 
     def init_connections(self):
         self.action_quit.triggered.connect(self.application.quit)
@@ -47,10 +41,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.pushbutton_open.clicked.connect(self.open_file)
         self.pushbutton_add.clicked.connect(self.add_task)
         self.pushbutton_remove.clicked.connect(self.remove_task)
-        for button in self.not_ready_buttons:
-            button.clicked.connect(self.work_in_progress)
-        for action in self.not_ready_actions:
-            action.triggered.connect(self.work_in_progress)
 
     def init_chores(self):
         pass
@@ -139,10 +129,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.update_task_list()
 
     def remove_task(self):
-        print('Not available for now')
+        task_to_remove = self.tablewidget_task_list.currentRow()
+        del self.download_tasks[task_to_remove]
+        self.update_task_list()
 
     def update_task_list(self):
-        pass
+        row_count = len(self.download_tasks)
+        self.tablewidget_task_list.clear()
+        self.download_task_items.clear()
+        self.tablewidget_task_list.setColumnCount(2)
+        self.tablewidget_task_list.setHorizontalHeaderLabels(('File', 'Status'))
+        self.tablewidget_task_list.setRowCount(row_count)
+        for i in range(row_count):
+            download_task = self.download_tasks[i]
+            self.download_task_items.append(download_task.target)
+            self.download_task_items.append(download_task.status)
+            self.tablewidget_task_list.setItem(i, 0, QTableWidgetItem(self.download_task_items[-2]))
+            self.tablewidget_task_list.setItem(i, 1, QTableWidgetItem(self.download_task_items[-1]))
 
     def eventFilter(self, obj, event):
         # FIXME: The event filter cannot receive any event other than those in which obj == self
