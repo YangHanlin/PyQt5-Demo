@@ -158,7 +158,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             return
         self.task_to_remove = self.tablewidget_task_list.currentRow()
         self.pushbutton_remove.setEnabled(False)
-        print(self.task_to_remove)
         self.download_tasks[self.task_to_remove].stop()
 
     def _remove_task(self):
