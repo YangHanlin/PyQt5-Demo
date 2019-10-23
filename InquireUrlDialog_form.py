@@ -13,9 +13,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(400, 200)
-        Dialog.setMinimumSize(QtCore.QSize(400, 200))
-        Dialog.setMaximumSize(QtCore.QSize(400, 200))
+        Dialog.resize(650, 200)
+        Dialog.setMinimumSize(QtCore.QSize(650, 200))
+        Dialog.setMaximumSize(QtCore.QSize(650, 200))
         Dialog.setStyleSheet("* {\n"
 "    font-family: \'Microsoft YaHei UI\'\n"
 "}")
@@ -46,4 +46,4 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "PyQt Demo"))
-        self.label_prompt.setText(_translate("Dialog", "Enter the URL to start download:"))
+        self.label_prompt.setText(_translate("Dialog", "Enter the URL to add a download task:"))
