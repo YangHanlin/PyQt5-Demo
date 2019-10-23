@@ -24,12 +24,17 @@ class DownloadTask(QObject):
         self._change_status('Progressing')
         try:
             with open(self.target, 'wb') as target_file:
-                response = requests.get(self.url)
+                response = requests.get(self.url, stream=True)
                 response.raise_for_status()
+                total_size = int(response.headers['Content-Length'])
+                chunk_size = 4 * 1024
+                downloaded_size = 0
                 # Response content is divided into chunks to avoid excessive use of memory
-                for chunk in response.iter_content(chunk_size=1024):
+                for chunk in response.iter_content(chunk_size=chunk_size):
                     if chunk:
                         target_file.write(chunk)
+                        downloaded_size += chunk_size
+                        self._change_status('{}%'.format(downloaded_size / total_size * 100))
         except requests.exceptions.HTTPError as e:
             err_str = e.args[0]
             colon_index = err_str.find(':')
@@ -39,6 +44,7 @@ class DownloadTask(QObject):
             self._change_status('Failed ({})'.format(err_str))
         except Exception as e:
             self._remove_target()
+            print(type(e), e.args)
             self._change_status('Failed')
         else:
             self._change_status('Completed')
@@ -70,6 +76,7 @@ class DownloadTask(QObject):
 
     def _change_status(self, status):
         self.status = status
+        print('status = {}'.format(status))
         self.status_changed.emit(status)
 
     def _remove_target(self):
