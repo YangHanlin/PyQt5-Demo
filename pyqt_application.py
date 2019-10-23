@@ -177,8 +177,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             ))
 
     def eventFilter(self, obj, event):
-        if obj in (self.widget_display_panel, self.label_display_panel, self.textedit_display_panel) \
-                and event.type() == QEvent.MouseButtonDblClick:
+        if obj == self.widget_display_panel and event.type() == QEvent.MouseButtonDblClick:
             if self.widget_display_panel.isFullScreen():
                 self.widget_display_panel.setWindowFlags(Qt.SubWindow)
                 self.widget_display_panel.setGeometry(self.widget_display_panel_original_geometry)
@@ -189,8 +188,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.widget_display_panel.showFullScreen()
                 # TODO: Rid of the margins of the layout of widget_display_panel temporarily in full-screen mode
             return True
-        # elif obj == self.widget_display_panel and event.type() == QEvent.Resize:
-        elif event.type() == QEvent.Resize:
+        elif obj == self.widget_display_panel and event.type() == QEvent.Resize:
             print('Resize event captured!')
             # FIXME: Images will be infinitely resized as the program goes full-screen
             self.handle_resize()
