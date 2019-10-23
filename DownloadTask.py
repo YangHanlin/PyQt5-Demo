@@ -63,7 +63,7 @@ class DownloadTask(QObject):
         self._remove_target()
 
     def _on_progressed(self, progress):
-        self._change_status('{}%'.format(progress * 100))
+        self._change_status('{:.2f}%'.format(progress * 100))
 
     def _available_target_for(self, url):
         res = url[url.rfind('/') + len('/'):]
