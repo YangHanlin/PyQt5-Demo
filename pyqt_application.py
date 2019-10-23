@@ -10,6 +10,8 @@ from PyQt5.QtCore import *
 
 from pyqt_application_form import Ui_MainWindow
 from CustomizedException import CustomizedException
+from DownloadTask import DownloadTask
+from InquireUrlDialog import InquireUrlDialog
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -18,7 +20,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.application = application
         self.not_ready_buttons = [
-            self.pushbutton_add,
+            # self.pushbutton_add,
             self.pushbutton_remove
         ]
         self.not_ready_actions = [
@@ -43,6 +45,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.action_download_tab.triggered.connect(self.update_tab)
         self.pushbutton_browse.clicked.connect(self.browse_file)
         self.pushbutton_open.clicked.connect(self.open_file)
+        self.pushbutton_add.clicked.connect(self.add_task)
+
         for button in self.not_ready_buttons:
             button.clicked.connect(self.work_in_progress)
         for action in self.not_ready_actions:
@@ -123,6 +127,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.tab_widget.addTab(self.tab_file, 'File')
         if self.action_download_tab.isChecked():
             self.tab_widget.addTab(self.tab_download, 'Download')
+
+    def add_task(self):
+        dialog = InquireUrlDialog(self)
+        dialog.url_ready.connect(self._add_task)
+        dialog.show()
+
+    def _add_task(self, url):
+        if not url:
+            return
+        download_task = DownloadTask(url)
+        print('New download task: {}'.format(download_task))
+
+    def update_task_list(self):
+        pass
 
     def eventFilter(self, obj, event):
         # FIXME: The event filter cannot receive any event other than those in which obj == self

@@ -24,7 +24,7 @@ class DownloadTask:
     def _available_target_for(self, url):
         res = url[url.rfind('/') + len('/'):]
         seperator_pos = res.rfind('.')
-        filename, extension = res[:seperator_pos]. res[seperator_pos + len('.'):]
+        filename, extension = res[:seperator_pos], res[seperator_pos + len('.'):]
         n = 0
         while os.path.exists(res):
             n += 1
