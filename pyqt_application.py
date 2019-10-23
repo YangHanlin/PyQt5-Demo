@@ -27,7 +27,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.download_tasks = []
         self.download_task_items = []
         self.display_panel_mode = ''
-        self.display_panel_img_path = ''
+        self.display_panel_path = ''
         self.widget_display_panel_original_geometry = QRect()
         self.widget_display_panel_layout_margins = (0, 0, 0, 0)
         self.init_connections()
@@ -56,7 +56,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def reset_display_panel(self):
         self.display_panel_mode = 'none'
-        self.display_panel_img_path = ''
+        self.display_panel_path = ''
         self.label_display_panel.setText('')
         self.label_display_panel.setAlignment(Qt.AlignLeft)
         self.textedit_display_panel.clear()
@@ -73,6 +73,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.lineedit_path.setText(path)
 
     def open_file(self):
+        # TODO: Current path
         path = self.lineedit_path.text()
         if path:
             try:
@@ -84,6 +85,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.list_widget_recent.addItem(path)
 
     def _open_file(self, path):
+        if path == self.display_panel_path:
+            return
         pattern = self.pattern_of(path)
         if pattern in ('Text files', 'All files'):
             try:
@@ -93,6 +96,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.label_display_panel.setText(path[path.rfind('/') + len('/'):])
                     self.textedit_display_panel.setText(file.read())
                     self.textedit_display_panel.show()
+                    self.display_panel_path = path
             except FileNotFoundError as e:
                 raise CustomizedException(CustomizedException.describe_file_error(e, path))
         elif pattern == 'Images':
@@ -101,10 +105,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     CustomizedException.describe_file_error(FileNotFoundError('No such file or directory'), path))
             self.reset_display_panel()
             self.display_panel_mode = 'img'
-            self.display_panel_img_path = path
             self.label_display_panel.setAlignment(Qt.AlignCenter)
             self.label_display_panel.setPixmap(
-                QPixmap(path).scaled(self.widget_display_panel.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation))
+                QPixmap(path).scaled(self.widget_display_panel.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            )
+            self.display_panel_path = path
         else:
             raise CustomizedException('Internal Error:\nInvalid file pattern \'{}\''.format(pattern))
 
@@ -168,7 +173,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def handle_resize(self):
         if self.display_panel_mode == 'img':
-            self.label_display_panel.setPixmap(QPixmap(self.display_panel_img_path).scaled(
+            self.label_display_panel.setPixmap(QPixmap(self.display_panel_path).scaled(
                 self.widget_display_panel.size(),
                 Qt.KeepAspectRatio,
                 Qt.SmoothTransformation
