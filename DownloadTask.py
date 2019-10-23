@@ -3,6 +3,7 @@ import os
 default_url = 'https://hanlinyang.coding.me/academy-city/greetings.txt'
 target_prefix = ''
 
+
 class DownloadTask:
     def __init__(self, url=None, target=None):
         self.url = url if url is not None else default_url
