@@ -73,7 +73,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.lineedit_path.setText(path)
 
     def open_file(self):
-        # TODO: Current path
         path = self.lineedit_path.text()
         if path:
             try:
@@ -87,6 +86,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def _open_file(self, path):
         if path == self.display_panel_path:
             return
+        if not os.path.exists(path):
+            raise CustomizedException(
+                CustomizedException.describe_file_error(FileNotFoundError('No such file or directory'), path)
+            )
+        if not os.path.isfile(path):
+            raise CustomizedException(
+                CustomizedException.describe_file_error(Exception('The resource is not a file'), path)
+            )
         pattern = self.pattern_of(path)
         if pattern in ('Text files', 'All files'):
             try:
@@ -100,9 +107,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             except FileNotFoundError as e:
                 raise CustomizedException(CustomizedException.describe_file_error(e, path))
         elif pattern == 'Images':
-            if not os.path.exists(path):
-                raise CustomizedException(
-                    CustomizedException.describe_file_error(FileNotFoundError('No such file or directory'), path))
             self.reset_display_panel()
             self.display_panel_mode = 'img'
             self.label_display_panel.setAlignment(Qt.AlignCenter)
