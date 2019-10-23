@@ -78,6 +78,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 if not self.list_widget_recent.findItems(path, Qt.MatchExactly):
                     self.list_widget_recent.addItem(path)
+                    # TODO: Click on list to re-open previously viewed files
 
     def _open_file(self, path):
         pattern = self.pattern_of(path)
