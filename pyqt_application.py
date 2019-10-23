@@ -41,6 +41,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.pushbutton_open.clicked.connect(self.open_file)
         self.pushbutton_add.clicked.connect(self.add_task)
         self.pushbutton_remove.clicked.connect(self.remove_task)
+        self.list_widget_recent.itemClicked.connect(self.fill_item)
+        self.list_widget_recent.itemDoubleClicked.connect(self.reopen_item)
 
     def init_chores(self):
         pass
@@ -146,6 +148,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.download_task_items.append(download_task.status)
             self.tablewidget_task_list.setItem(i, 0, QTableWidgetItem(self.download_task_items[-2]))
             self.tablewidget_task_list.setItem(i, 1, QTableWidgetItem(self.download_task_items[-1]))
+
+    def fill_item(self, item):
+        self.lineedit_path.setText(item.text())
+
+    def reopen_item(self, item):
+        self.fill_item(item)
+        self.open_file()
 
     def eventFilter(self, obj, event):
         # FIXME: The event filter cannot receive any event other than those in which obj == self
