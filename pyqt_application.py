@@ -146,6 +146,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dialog.show()
 
     def _add_task(self, url):
+        url = url.strip()
         if url:
             self.download_tasks.append(DownloadTask(url))
             self.download_tasks[-1].status_changed.connect(self.update_task_list)
