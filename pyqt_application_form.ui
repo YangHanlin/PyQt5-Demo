@@ -41,17 +41,18 @@ QPushButton {
     border-radius: 4px;
 }
 
-QPushButton:focus, QPushButton:pressed {
-    border-color: #3d6185;
-    border-width: 3px;
-}
-
 QLineEdit {
     height: 36px;
     background-color: #45494a;
     border-style: solid;
     border-color: #646464;
     border-width: 1px;
+    border-radius: 1px;
+}
+
+QPushButton:focus, QPushButton:pressed, QLineEdit:focus {
+    border-color: #3d6185;
+    border-width: 3px;
 }
 
 QTextEdit {
@@ -69,16 +70,11 @@ QMenuBar::item {
     padding-right: 10px;
 }
 
-QMenuBar::item:pressed, QMenu::item:selected {
-    background-color: #4b6eaf;
-}
-
 QMenu {
     padding: 0px;
     border-style: solid;
     border-width: 1px;
     border-color: #515151;
-    box-shadow: none;
 }
 
 QMenu::item {
@@ -89,6 +85,63 @@ QMenu::item {
 }
 
 /* FIXME: Ugly check signs in menus! */
+
+QListWidget {
+    background-color: #414547;
+    alternate-background-color: #3c3f41;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #323232;
+}
+
+QListWidget::item {
+    color: #bbbbbb;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+QMenuBar::item:pressed, QMenu::item:selected, QListWidget::item:selected {
+    background-color: #4b6eaf;
+}
+
+QScrollBar {
+	background-color: transparent;
+}
+
+QScrollBar:horizontal {
+    height: 12px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+QScrollBar:vertical {
+    width: 12px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+QScrollBar::handle {
+    border-style: none;
+    background-color: #4d4d4d;
+}
+
+QScrollBar::handle:hover {
+    background-color: #5c5c5c;
+}
+
+QScrollBar::add-page, QScrollBar::sub-page {
+    background-color: transparent;
+}
+
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal, QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    border: none;
+    background: none;
+}
+
+QScrollBar::left-arrow:horizontal, QScrollBar::right-arrow:horizontal, QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+    height: 0px;
+    width: 0px;
+}
 </string>
   </property>
   <widget class="QWidget" name="central_widget">
@@ -282,7 +335,11 @@ QMenu::item {
             </widget>
            </item>
            <item>
-            <widget class="QListWidget" name="list_widget_recent"/>
+            <widget class="QListWidget" name="list_widget_recent">
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
