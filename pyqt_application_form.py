@@ -81,7 +81,7 @@ class Ui_MainWindow(object):
 "\n"
 "/* FIXME: Ugly check signs in menus! */\n"
 "\n"
-"QListWidget {\n"
+"QListWidget, QTableWidget {\n"
 "    background-color: #414547;\n"
 "    alternate-background-color: #3c3f41;\n"
 "    border-style: solid;\n"
@@ -157,6 +157,11 @@ class Ui_MainWindow(object):
 "\n"
 "QTabBar::tab:selected {\n"
 "    border-bottom: 5px solid #747a80\n"
+"}\n"
+"\n"
+"QHeaderView::section {\n"
+"    background-color:#3c3f41;\n"
+"    border-style: solid;\n"
 "}\n"
 "")
         self.central_widget = QtWidgets.QWidget(MainWindow)
@@ -264,6 +269,7 @@ class Ui_MainWindow(object):
         self.vertical_layout_task_list.addWidget(self.label_task_list)
         self.tablewidget_task_list = QtWidgets.QTableWidget(self.tab_download)
         self.tablewidget_task_list.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.tablewidget_task_list.setAlternatingRowColors(True)
         self.tablewidget_task_list.setShowGrid(False)
         self.tablewidget_task_list.setObjectName("tablewidget_task_list")
         self.tablewidget_task_list.setColumnCount(0)

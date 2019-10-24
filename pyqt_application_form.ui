@@ -86,7 +86,7 @@ QMenu::item {
 
 /* FIXME: Ugly check signs in menus! */
 
-QListWidget {
+QListWidget, QTableWidget {
     background-color: #414547;
     alternate-background-color: #3c3f41;
     border-style: solid;
@@ -162,6 +162,11 @@ QTabBar::tab:hover {
 
 QTabBar::tab:selected {
     border-bottom: 5px solid #747a80
+}
+
+QHeaderView::section {
+    background-color:#3c3f41;
+    border-style: solid;
 }
 </string>
   </property>
@@ -418,6 +423,9 @@ QTabBar::tab:selected {
             <widget class="QTableWidget" name="tablewidget_task_list">
              <property name="editTriggers">
               <set>QAbstractItemView::NoEditTriggers</set>
+             </property>
+             <property name="alternatingRowColors">
+              <bool>true</bool>
              </property>
              <property name="showGrid">
               <bool>false</bool>
