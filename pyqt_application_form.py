@@ -48,12 +48,41 @@ class Ui_MainWindow(object):
 "    background-color: #2b2b2b;\n"
 "}\n"
 "\n"
-"QMenu::indicator:hover, QMenu::menu-indicator:hover {\n"
-"    background-color: red;\n"
+"QMenuBar, QMenuBar::item, QMenuBar::item:selected {\n"
+"    background-color: transparent;\n"
 "}\n"
 "\n"
-"QMenu:selected, QMenu::item:selected {\n"
+"QMenuBar::item {\n"
+"    padding-top: 8px;\n"
+"    padding-bottom: 8px;\n"
+"    padding-left: 10px;\n"
+"    padding-right: 10px;\n"
+"}\n"
+"\n"
+"QMenuBar::item:pressed, QMenu::item:selected {\n"
 "    background-color: #4b6eaf;\n"
+"}\n"
+"\n"
+"QMenu {\n"
+"    padding: 0px;\n"
+"    border-style: solid;\n"
+"    border-width: 1px;\n"
+"    border-color: #515151;\n"
+"    box-shadow: none;\n"
+"}\n"
+"\n"
+"QMenu::item {\n"
+"    padding-top: 8px;\n"
+"    padding-bottom: 8px;\n"
+"    padding-left: 37px;\n"
+"    padding-right: 10px;\n"
+"}\n"
+"\n"
+"QMenu::icon:checked {\n"
+"    margin-left: 10px;\n"
+"    margin;top: 0px;\n"
+"    margin-bottom:0px;\n"
+"    background-color: red;\n"
 "}\n"
 "")
         self.central_widget = QtWidgets.QWidget(MainWindow)
@@ -78,14 +107,25 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addWidget(self.widget_display_panel)
         MainWindow.setCentralWidget(self.central_widget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1200, 15))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1200, 26))
         self.menubar.setMinimumSize(QtCore.QSize(0, 10))
         self.menubar.setObjectName("menubar")
         self.menu_file = QtWidgets.QMenu(self.menubar)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.menu_file.sizePolicy().hasHeightForWidth())
+        self.menu_file.setSizePolicy(sizePolicy)
+        self.menu_file.setMinimumSize(QtCore.QSize(320, 0))
+        self.menu_file.setMaximumSize(QtCore.QSize(320, 16777215))
         self.menu_file.setObjectName("menu_file")
         self.menu_help = QtWidgets.QMenu(self.menubar)
+        self.menu_help.setMinimumSize(QtCore.QSize(320, 0))
+        self.menu_help.setMaximumSize(QtCore.QSize(320, 16777215))
         self.menu_help.setObjectName("menu_help")
         self.menu_view = QtWidgets.QMenu(self.menubar)
+        self.menu_view.setMinimumSize(QtCore.QSize(320, 0))
+        self.menu_view.setMaximumSize(QtCore.QSize(320, 16777215))
         self.menu_view.setObjectName("menu_view")
         MainWindow.setMenuBar(self.menubar)
         self.sidebar = QtWidgets.QDockWidget(MainWindow)
