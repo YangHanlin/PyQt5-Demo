@@ -15,11 +15,49 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1200, 800)
         MainWindow.setMinimumSize(QtCore.QSize(800, 600))
-        MainWindow.setStyleSheet("* {\n"
-"    font-family: \'Microsoft YaHei UI\', sans-serif\n"
+        MainWindow.setStyleSheet("/*\n"
+" * This stylesheet contains almost all styles in this UI.\n"
+" * Inspired by JetBrains IDEs.\n"
+" */\n"
+"\n"
+"* {\n"
+"    font-family: \'Microsoft YaHei UI\', sans-serif;\n"
+"    background-color: #3c3f41;\n"
+"    color: #bbbbbb;\n"
+"}\n"
+"\n"
+"QPushButton {\n"
+"    width: 109px;\n"
+"    height: 36px;\n"
+"    background-color: #4c5052;\n"
+"    border-style: solid;\n"
+"    border-color: #5e6060;\n"
+"    border-width: 1px;\n"
+"    border-radius: 4px;\n"
+"}\n"
+"\n"
+"QLineEdit {\n"
+"    height: 36px;\n"
+"    background-color: #45494a;\n"
+"    border-style: solid;\n"
+"    border-color: #646464;\n"
+"    border-width: 1px;\n"
+"}\n"
+"\n"
+"QTextEdit {\n"
+"    background-color: #2b2b2b;\n"
+"}\n"
+"\n"
+"QMenu::indicator:hover, QMenu::menu-indicator:hover {\n"
+"    background-color: red;\n"
+"}\n"
+"\n"
+"QMenu:selected, QMenu::item:selected {\n"
+"    background-color: #4b6eaf;\n"
 "}\n"
 "")
         self.central_widget = QtWidgets.QWidget(MainWindow)
+        self.central_widget.setStyleSheet("")
         self.central_widget.setObjectName("central_widget")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.central_widget)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
