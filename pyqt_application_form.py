@@ -36,6 +36,11 @@ class Ui_MainWindow(object):
 "    border-radius: 4px;\n"
 "}\n"
 "\n"
+"QPushButton:focus, QPushButton:pressed {\n"
+"    border-color: #3d6185;\n"
+"    border-width: 3px;\n"
+"}\n"
+"\n"
 "QLineEdit {\n"
 "    height: 36px;\n"
 "    background-color: #45494a;\n"
@@ -78,12 +83,7 @@ class Ui_MainWindow(object):
 "    padding-right: 10px;\n"
 "}\n"
 "\n"
-"QMenu::icon:checked {\n"
-"    margin-left: 10px;\n"
-"    margin;top: 0px;\n"
-"    margin-bottom:0px;\n"
-"    background-color: red;\n"
-"}\n"
+"/* FIXME: Ugly check signs in menus! */\n"
 "")
         self.central_widget = QtWidgets.QWidget(MainWindow)
         self.central_widget.setStyleSheet("")
@@ -116,16 +116,16 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.menu_file.sizePolicy().hasHeightForWidth())
         self.menu_file.setSizePolicy(sizePolicy)
-        self.menu_file.setMinimumSize(QtCore.QSize(320, 0))
-        self.menu_file.setMaximumSize(QtCore.QSize(320, 16777215))
+        self.menu_file.setMinimumSize(QtCore.QSize(300, 0))
+        self.menu_file.setMaximumSize(QtCore.QSize(300, 16777215))
         self.menu_file.setObjectName("menu_file")
         self.menu_help = QtWidgets.QMenu(self.menubar)
-        self.menu_help.setMinimumSize(QtCore.QSize(320, 0))
-        self.menu_help.setMaximumSize(QtCore.QSize(320, 16777215))
+        self.menu_help.setMinimumSize(QtCore.QSize(300, 0))
+        self.menu_help.setMaximumSize(QtCore.QSize(300, 16777215))
         self.menu_help.setObjectName("menu_help")
         self.menu_view = QtWidgets.QMenu(self.menubar)
-        self.menu_view.setMinimumSize(QtCore.QSize(320, 0))
-        self.menu_view.setMaximumSize(QtCore.QSize(320, 16777215))
+        self.menu_view.setMinimumSize(QtCore.QSize(300, 0))
+        self.menu_view.setMaximumSize(QtCore.QSize(300, 16777215))
         self.menu_view.setObjectName("menu_view")
         MainWindow.setMenuBar(self.menubar)
         self.sidebar = QtWidgets.QDockWidget(MainWindow)

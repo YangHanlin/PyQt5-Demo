@@ -41,6 +41,11 @@ QPushButton {
     border-radius: 4px;
 }
 
+QPushButton:focus, QPushButton:pressed {
+    border-color: #3d6185;
+    border-width: 3px;
+}
+
 QLineEdit {
     height: 36px;
     background-color: #45494a;
@@ -83,12 +88,7 @@ QMenu::item {
     padding-right: 10px;
 }
 
-QMenu::icon:checked {
-    margin-left: 10px;
-    margin;top: 0px;
-    margin-bottom:0px;
-    background-color: red;
-}
+/* FIXME: Ugly check signs in menus! */
 </string>
   </property>
   <widget class="QWidget" name="central_widget">
@@ -151,13 +151,13 @@ QMenu::icon:checked {
     </property>
     <property name="minimumSize">
      <size>
-      <width>320</width>
+      <width>300</width>
       <height>0</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
-      <width>320</width>
+      <width>300</width>
       <height>16777215</height>
      </size>
     </property>
@@ -169,13 +169,13 @@ QMenu::icon:checked {
    <widget class="QMenu" name="menu_help">
     <property name="minimumSize">
      <size>
-      <width>320</width>
+      <width>300</width>
       <height>0</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
-      <width>320</width>
+      <width>300</width>
       <height>16777215</height>
      </size>
     </property>
@@ -187,13 +187,13 @@ QMenu::icon:checked {
    <widget class="QMenu" name="menu_view">
     <property name="minimumSize">
      <size>
-      <width>320</width>
+      <width>300</width>
       <height>0</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
-      <width>320</width>
+      <width>300</width>
       <height>16777215</height>
      </size>
     </property>
