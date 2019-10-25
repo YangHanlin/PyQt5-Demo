@@ -22,11 +22,13 @@ python pyqt_application.py
 
 The `.ui` files can be edited with Qt Designer, and `_form.py` files are the corresponding outputs of `pyuic` which converts `.ui` files into Python modules.
 
-To install Qt Designer, you can simply install an official Qt distribution, or you can install package `PyQt5-tools`:
+To install Qt Designer, you can install package `PyQt5-tools`, which also includes some other useful tools such as `pyuic` and `pyrcc`:
 
 ```bash
 pip install PyQt5-tools
 ```
+
+If you would only like Qt Designer and you’ve installed an official Qt distribution, you may have already had it.
 
 *PS: The user interface is ugly, isn’t it?*
 
