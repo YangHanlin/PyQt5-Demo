@@ -15,11 +15,157 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1200, 800)
         MainWindow.setMinimumSize(QtCore.QSize(800, 600))
-        MainWindow.setStyleSheet("* {\n"
-"    font-family: \'Microsoft YaHei UI\', sans-serif\n"
+        MainWindow.setStyleSheet("/*\n"
+" * This stylesheet contains almost all styles in this UI.\n"
+" * Inspired by JetBrains IDEs.\n"
+" */\n"
+"\n"
+"* {\n"
+"    font-family: \'Microsoft YaHei UI\', sans-serif;\n"
+"    background-color: #3c3f41;\n"
+"    color: #bbbbbb;\n"
+"}\n"
+"\n"
+"QPushButton {\n"
+"    width: 109px;\n"
+"    height: 36px;\n"
+"    background-color: #4c5052;\n"
+"    border-style: solid;\n"
+"    border-color: #5e6060;\n"
+"    border-width: 1px;\n"
+"    border-radius: 4px;\n"
+"}\n"
+"\n"
+"QLineEdit {\n"
+"    height: 36px;\n"
+"    background-color: #45494a;\n"
+"    border-style: solid;\n"
+"    border-color: #646464;\n"
+"    border-width: 1px;\n"
+"    border-radius: 1px;\n"
+"}\n"
+"\n"
+"QPushButton:focus, QPushButton:pressed, QLineEdit:focus {\n"
+"    border-color: #3d6185;\n"
+"    border-width: 3px;\n"
+"}\n"
+"\n"
+"QTextEdit {\n"
+"    background-color: #2b2b2b;\n"
+"}\n"
+"\n"
+"QMenuBar, QMenuBar::item, QMenuBar::item:selected {\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QMenuBar::item {\n"
+"    padding-top: 8px;\n"
+"    padding-bottom: 8px;\n"
+"    padding-left: 10px;\n"
+"    padding-right: 10px;\n"
+"}\n"
+"\n"
+"QMenu {\n"
+"    padding: 0px;\n"
+"    border-style: solid;\n"
+"    border-width: 1px;\n"
+"    border-color: #515151;\n"
+"}\n"
+"\n"
+"QMenu::item {\n"
+"    padding-top: 8px;\n"
+"    padding-bottom: 8px;\n"
+"    padding-left: 37px;\n"
+"    padding-right: 10px;\n"
+"}\n"
+"\n"
+"/* FIXME: Ugly check signs in menus! */\n"
+"\n"
+"QListWidget, QTableWidget {\n"
+"    background-color: #414547;\n"
+"    alternate-background-color: #3c3f41;\n"
+"    border-style: solid;\n"
+"    border-width: 1px;\n"
+"    border-color: #323232;\n"
+"}\n"
+"\n"
+"QListWidget::item {\n"
+"    color: #bbbbbb;\n"
+"    padding-top: 4px;\n"
+"    padding-bottom: 4px;\n"
+"}\n"
+"\n"
+"QMenuBar::item:pressed, QMenu::item:selected, QListWidget::item:selected {\n"
+"    background-color: #4b6eaf;\n"
+"}\n"
+"\n"
+"QScrollBar {\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QScrollBar:horizontal {\n"
+"    height: 12px;\n"
+"    padding-left: 0px;\n"
+"    padding-right: 0px;\n"
+"}\n"
+"\n"
+"QScrollBar:vertical {\n"
+"    width: 12px;\n"
+"    padding-top: 0px;\n"
+"    padding-bottom: 0px;\n"
+"}\n"
+"\n"
+"QScrollBar::handle {\n"
+"    border-style: none;\n"
+"    background-color: #4d4d4d;\n"
+"}\n"
+"\n"
+"QScrollBar::handle:hover {\n"
+"    background-color: #5c5c5c;\n"
+"}\n"
+"\n"
+"QScrollBar::add-page, QScrollBar::sub-page {\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal, QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {\n"
+"    border: none;\n"
+"    background: none;\n"
+"}\n"
+"\n"
+"QScrollBar::left-arrow:horizontal, QScrollBar::right-arrow:horizontal, QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {\n"
+"    height: 0px;\n"
+"    width: 0px;\n"
+"}\n"
+"\n"
+"QTabWidget::pane {\n"
+"    border-top: 1px solid #323232;\n"
+"}\n"
+"\n"
+"QTabBar::tab {\n"
+"    border-style: none;\n"
+"    background-color: #3c3f41;\n"
+"    padding-left: 20px;\n"
+"    padding-right: 20px;\n"
+"    padding-top: 7px;\n"
+"    padding-bottom: 7px;\n"
+"}\n"
+"\n"
+"QTabBar::tab:hover {\n"
+"    background-color: #27292a\n"
+"}\n"
+"\n"
+"QTabBar::tab:selected {\n"
+"    border-bottom: 5px solid #747a80\n"
+"}\n"
+"\n"
+"QHeaderView::section {\n"
+"    background-color:#3c3f41;\n"
+"    border-style: solid;\n"
 "}\n"
 "")
         self.central_widget = QtWidgets.QWidget(MainWindow)
+        self.central_widget.setStyleSheet("")
         self.central_widget.setObjectName("central_widget")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.central_widget)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
@@ -40,14 +186,25 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addWidget(self.widget_display_panel)
         MainWindow.setCentralWidget(self.central_widget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1200, 15))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1200, 26))
         self.menubar.setMinimumSize(QtCore.QSize(0, 10))
         self.menubar.setObjectName("menubar")
         self.menu_file = QtWidgets.QMenu(self.menubar)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.menu_file.sizePolicy().hasHeightForWidth())
+        self.menu_file.setSizePolicy(sizePolicy)
+        self.menu_file.setMinimumSize(QtCore.QSize(300, 0))
+        self.menu_file.setMaximumSize(QtCore.QSize(300, 16777215))
         self.menu_file.setObjectName("menu_file")
         self.menu_help = QtWidgets.QMenu(self.menubar)
+        self.menu_help.setMinimumSize(QtCore.QSize(300, 0))
+        self.menu_help.setMaximumSize(QtCore.QSize(300, 16777215))
         self.menu_help.setObjectName("menu_help")
         self.menu_view = QtWidgets.QMenu(self.menubar)
+        self.menu_view.setMinimumSize(QtCore.QSize(300, 0))
+        self.menu_view.setMaximumSize(QtCore.QSize(300, 16777215))
         self.menu_view.setObjectName("menu_view")
         MainWindow.setMenuBar(self.menubar)
         self.sidebar = QtWidgets.QDockWidget(MainWindow)
@@ -85,6 +242,7 @@ class Ui_MainWindow(object):
         self.label_recent.setObjectName("label_recent")
         self.vertical_layout_recent_files.addWidget(self.label_recent)
         self.list_widget_recent = QtWidgets.QListWidget(self.tab_file)
+        self.list_widget_recent.setAlternatingRowColors(True)
         self.list_widget_recent.setObjectName("list_widget_recent")
         self.vertical_layout_recent_files.addWidget(self.list_widget_recent)
         self.verticalLayout_4.addLayout(self.vertical_layout_recent_files)
@@ -111,6 +269,7 @@ class Ui_MainWindow(object):
         self.vertical_layout_task_list.addWidget(self.label_task_list)
         self.tablewidget_task_list = QtWidgets.QTableWidget(self.tab_download)
         self.tablewidget_task_list.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.tablewidget_task_list.setAlternatingRowColors(True)
         self.tablewidget_task_list.setShowGrid(False)
         self.tablewidget_task_list.setObjectName("tablewidget_task_list")
         self.tablewidget_task_list.setColumnCount(0)

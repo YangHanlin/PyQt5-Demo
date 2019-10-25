@@ -173,6 +173,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.download_task_items.clear()
         self.tablewidget_task_list.setColumnCount(2)
         self.tablewidget_task_list.setHorizontalHeaderLabels(('File', 'Status'))
+        self.tablewidget_task_list.verticalHeader().hide()
         self.tablewidget_task_list.setRowCount(row_count)
         for i in range(row_count):
             download_task = self.download_tasks[i]
