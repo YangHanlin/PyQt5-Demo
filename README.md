@@ -4,16 +4,16 @@ A simple demo of PyQt5, containing simple features including:
 
 - Opening text and image files;
 
-  There are already some files prepared for test:
+  There are already some files prepared for testing:
 
   - `misaka.c.txt`: A simple C program styled as one of the Misaka Sisters, originally taken from IOCCC 2013;
-  - `misaka-mikoto.png`: A screenshot from *A Certain Magical Index* E8, showing Kamijo Toma’s sister in Misaka Mikoto’s appearance.
+  - `misaka-mikoto.png`: A screenshot from *A Certain Magical Index* E15 (*Angel Fall*), showing Kamijo Toma’s sister in Misaka Mikoto’s appearance.
 
 - Downloading simple files from the Internet.
 
 ## Launching
 
-To launch this demo, you need have Python and Pip installed, and run the command below:
+To launch this demo, you need to have Python and Pip installed, and run the commands below:
 
 ```bash
 pip install -r requirements.txt
