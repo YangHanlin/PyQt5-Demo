@@ -21,7 +21,7 @@ class DownloadTask(QObject):
         self.stopping = False
 
     def __str__(self):
-        return 'Download task [URL = \'{}\', target = \'{}\', Status = \'{}\']'.format(self.url, self.target, self.status)
+        return 'Download task [URL = \'{}\', target = \'{}\', status = \'{}\']'.format(self.url, self.target, self.status)
 
     def start(self):
         if self.stopping:
