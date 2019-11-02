@@ -32,3 +32,12 @@ If you would only like Qt Designer and you’ve installed an official Qt distrib
 
 *PS: The user interface is ugly, isn’t it?*
 
+## License
+
+The repo, unless otherwise noted, is licensed under the [GNU General Public License 3.0 (GPL-3.0)](LICENSE), except for some exceptions listed below.
+
+### Exceptions
+
+- `misaka-mikoto.png` is part of the animation series *A Certain Magical Index* produced by J.C. Staff, which is work and property of its copyright holder(s);
+- `misaka.c.txt` is originally taken from the work of Don Yang in IOCCC, which is licensed under the CC-BY-SA 3.0 license.
+
