@@ -15,7 +15,7 @@ class DownloadTask(QObject):
     def __init__(self, url=None, target=None):
         super().__init__()
         self.url = url if url is not None else default_url
-        self.target = target_prefix + self._available_target_for(url)
+        self.target = target if target is not None else target_prefix + self._available_target_for(url)
         self.status = 'Waiting'
         self.thread_ = None
         self.stopping = False
