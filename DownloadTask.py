@@ -4,7 +4,7 @@ from PyQt5.QtCore import *
 
 from DownloadThread import DownloadThread
 
-default_url = 'https://hanlinyang.coding.me/academy-city/greetings.txt'
+default_url = 'https://coding.accelerator.wtf/academy-city/greetings.txt'
 target_prefix = ''
 
 
